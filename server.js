@@ -76,12 +76,40 @@ app.post("/api/new", function(req, res) {
 
   	} else {
 
-  		console.log("Sorry, sucks to suck");
+  		console.log("Sorry, we are booked up completely");
   	}
 
   }
   
   res.json(newRes);
+});
+
+app.post("/api/deleteTable", function(req, res) {
+
+	for (var = 1; i < tables.length; i++) {
+
+		if (this.id === tables[i].id) {
+
+			tables.splice(i, 1);
+
+		}
+
+	}
+
+});
+
+app.post("/api/deleteWaitlist", function(req, res) {
+
+	for (var = 1; i < waitlist.length; i++) {
+
+		if (this.id === waitlist[i].id) {
+
+			waitlist.splice(i, 1);
+
+		}
+
+	}
+
 });
 
 // Starts the server to begin listening
