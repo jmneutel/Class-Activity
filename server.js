@@ -16,7 +16,6 @@ app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 var tables = [];
-var waitlist = [];
 
 app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "index.html"));
@@ -27,7 +26,7 @@ app.get("/add", function(req, res) {
 });
 
 app.get("/view", function(req, res) {
-    res.sendFile(path.join(__dirname, "add.html"));
+    res.sendFile(path.join(__dirname, "view.html"));
 });
 
 app.get("/api/:reservations?", function(req, res) {
@@ -43,18 +42,11 @@ app.get("/api/:reservations?", function(req, res) {
             }
         }
 
-        for (var i = 0; i < waitlist.length; i++) {
-            if (chosen === waitlist[i].routeName) {
-                res.json(waitlist[i]);
-                return;
-            }
-        }
+        console.log(tables);
 
-
-        res.json(false);
-    } else {
         res.json(tables);
-        res.json(waitlist);
+    } else {
+        res.json(false);
     }
 });
 
@@ -64,29 +56,14 @@ app.post("/api/new", function(req, res) {
 
   console.log(newRes);
 
-  if(tables.length <= 5) {
-
-  	tables.push(newRes);
-
-  } else {
-
-  	if(waitlist.length <= 5) {
-
-  		waitlist.push(newRes);
-
-  	} else {
-
-  		console.log("Sorry, we are booked up completely");
-  	}
-
-  }
+  tables.push(newRes);
   
   res.json(newRes);
 });
 
 app.post("/api/deleteTable", function(req, res) {
 
-	for (var = 1; i < tables.length; i++) {
+	for (var i = 1; i < tables.length; i++) {
 
 		if (this.id === tables[i].id) {
 
@@ -100,7 +77,7 @@ app.post("/api/deleteTable", function(req, res) {
 
 app.post("/api/deleteWaitlist", function(req, res) {
 
-	for (var = 1; i < waitlist.length; i++) {
+	for (var i = 1; i < waitlist.length; i++) {
 
 		if (this.id === waitlist[i].id) {
 
